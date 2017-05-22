@@ -30,4 +30,6 @@ public class Main extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		super.render();
 	}
+	
+	 public void setForegroundFPS(int value) {}
 }

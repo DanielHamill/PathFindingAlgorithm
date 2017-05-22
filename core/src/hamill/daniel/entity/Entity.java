@@ -11,8 +11,6 @@ import hamill.daniel.utils.Vec2;
 public class Entity {
 	
 	Texture img;
-	
-//	public float xPos, yPos;
 	public ArrayList<Vec2> path;
 	public int index;
 	public Vec2 current;
@@ -29,9 +27,8 @@ public class Entity {
 	}
 	
 	public void tick(float delta) {
-		if(current.distanceFrom(start) >= path.get(index).distance) {
+		if(path.isEmpty() || current.distanceFrom(start) >= path.get(index).distance) {
 			if(index<path.size()-1) {
-				System.out.println("Changing");
 				changeTarget();
 			}
 		}
@@ -51,12 +48,19 @@ public class Entity {
 	}
 	
 	public void add(Vec2 vector) {
-		current.x += vector.x * Gdx.graphics.getDeltaTime();
-		current.y += vector.y * Gdx.graphics.getDeltaTime();
+		current.x += vector.x;
+		current.y += vector.y;
 	}
 	
 	public void addVec(Vec2 vector) {
 		path.add(vector);
+	}
+	
+	public void interpret(String bitString) {
+		path.clear();
+		for(int i = 0; i < bitString.length(); i+=16) {
+			path.add(new Vec2(bitString.substring(i, i+16)));
+		}
 	}
 	
 }

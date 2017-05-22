@@ -5,25 +5,23 @@ import com.badlogic.gdx.graphics.Texture;
 
 import hamill.daniel.Main;
 import hamill.daniel.entity.Entity;
+import hamill.daniel.utils.GeneticAlgorithm;
 import hamill.daniel.utils.Vec2;
 
 public class MainScreen implements Screen{
 	
-	Main main;
+	public Main main;
+	public Texture field;
+	public Entity entity;
 	
-	Texture field;
-	
-	Entity entity;
+	public GeneticAlgorithm ga;
 	
 	public MainScreen(Main main) {
 		this.main = main;
 		
 		field = new Texture("gfx/game/world.png");
-		entity = new Entity(100, 100);
-		entity.addVec(new Vec2(50, 50, 50));
-		entity.addVec(new Vec2(-50,50, 50));
-		entity.addVec(new Vec2(20,-50, 100));
-		entity.addVec(new Vec2(20,10, 100));
+		ga = new GeneticAlgorithm();
+		ga.runProgram();
 	}
 	
 	@Override
@@ -33,14 +31,14 @@ public class MainScreen implements Screen{
 	}
 	
 	public void tick(float delta) {
-		entity.tick(delta);
+		ga.tick(delta);
 	}
 	
 	public void draw() {
 		main.batch.begin();
 		
 		main.batch.draw(field, 0, 0);
-		entity.draw(main.batch);
+		ga.draw(main.batch);
 		
 		main.batch.end();
 	}

@@ -7,7 +7,11 @@ import hamill.daniel.Main;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Main(), config);
+		final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		new LwjglApplication(new Main() {
+			 public void setForegroundFPS(int value) {
+				 config.foregroundFPS = value;
+			 }
+		}, config);
 	}
 }
