@@ -27,10 +27,18 @@ public class Vec2 {
 		return (float)Math.sqrt((x-vector.x)*(x-vector.x) + (y-vector.y)*(y-vector.y));
 	}
 	
+	public void setCoordinates(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public String toString() {
-		char signX = x<0?'0':'1';
-		char signY = y<0?'0':'1';
-		return signX + String.format("%04d", Integer.parseInt(Integer.toBinaryString((int) x))) + "" + signY + String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)y))) + "" + String.format("%08d", Integer.parseInt(Integer.toBinaryString((int)distance)));
+		String signX = x<0?"0":"1";
+		String signY = y<0?"0":"1";
+		String binX = String.format("%04d", Integer.parseInt(Integer.toBinaryString(Math.abs((int)x))));
+		String binY = String.format("%04d", Integer.parseInt(Integer.toBinaryString(Math.abs((int)y))));
+		String dis = String.format("%08d", Integer.parseInt(Integer.toBinaryString((int)distance)));
+		return signX+binX+signY+binY+dis;
 	}
 	
 }

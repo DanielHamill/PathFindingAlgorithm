@@ -20,7 +20,7 @@ public class MainScreen implements Screen{
 		this.main = main;
 		
 		field = new Texture("gfx/game/world.png");
-		ga = new GeneticAlgorithm();
+		ga = new GeneticAlgorithm(main);
 		ga.runProgram();
 	}
 	

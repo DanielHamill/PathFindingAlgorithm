@@ -11,6 +11,10 @@ public class DesktopLauncher {
 		new LwjglApplication(new Main() {
 			 public void setForegroundFPS(int value) {
 				 config.foregroundFPS = value;
+				 config.backgroundFPS = value;
+				 config.vSyncEnabled = false;
+				 config.useGL30 = false;
+				 config.forceExit = false;
 			 }
 		}, config);
 	}
