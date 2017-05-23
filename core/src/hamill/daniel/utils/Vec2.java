@@ -11,9 +11,11 @@ public class Vec2 {
 	}
 	
 	public Vec2(String parse) {
-		this.x = Integer.parseUnsignedInt(parse.substring(0,4),2);
-		this.y = Integer.parseUnsignedInt(parse.substring(4,8),2);
-		this.distance = Integer.parseInt(parse.substring(8,16),2);
+		this.x = Integer.parseUnsignedInt(parse.substring(1,5),2);
+		if(parse.charAt(0)=='0') this.x *= -1;
+		this.y = Integer.parseUnsignedInt(parse.substring(6,10),2);
+		if(parse.charAt(5)=='0') this.y *= -1;
+		this.distance = Integer.parseInt(parse.substring(10,parse.length()),2);
 	}
 	
 	public void add(Vec2 vector) {
@@ -26,7 +28,9 @@ public class Vec2 {
 	}
 	
 	public String toString() {
-		return String.format("%04d", Integer.parseInt(Integer.toBinaryString((int) x))) + "" + String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)y))) + "" + String.format("%08d", Integer.parseInt(Integer.toBinaryString((int)distance)));
+		char signX = x<0?'0':'1';
+		char signY = y<0?'0':'1';
+		return signX + String.format("%04d", Integer.parseInt(Integer.toBinaryString((int) x))) + "" + signY + String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)y))) + "" + String.format("%08d", Integer.parseInt(Integer.toBinaryString((int)distance)));
 	}
 	
 }

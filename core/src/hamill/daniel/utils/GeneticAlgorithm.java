@@ -1,6 +1,7 @@
 package hamill.daniel.utils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -12,7 +13,8 @@ public class GeneticAlgorithm {
 	
 	private ArrayList<String[]> generations;
 	private int currentGen;
-	
+	private int currentIndividual;
+	private Random r;
 	private Entity entity;
 	
 	public GeneticAlgorithm() {
@@ -20,10 +22,12 @@ public class GeneticAlgorithm {
 		generations.ensureCapacity(30);
 		currentGen = 0;
 		entity = new Entity(100,100);
+		r = new Random();
 	}
 	
 	public void tick(float delta) {
-		entity.tick(delta);
+//		entity.tick(delta);
+		runGen();
 	}
 	
 	public void draw(Batch batch) {
@@ -57,9 +61,16 @@ public class GeneticAlgorithm {
 	public String generateString() {
 		String path = "";
 		for(int i = 0; i < randomWithRange(5,25); i++) {
-			path += String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*15)+1)))) + 
+			path += Integer.toBinaryString(r.nextInt(2)) +
+					String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*15)+1)))) + 
+					Integer.toBinaryString(r.nextInt(2)) +
 					String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*15)+1)))) +
 					String.format("%08d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*50)+1))));
+//			System.out.println(Integer.toBinaryString(r.nextInt(2)) +
+//					String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*15)+1)))) + 
+//					Integer.toBinaryString(r.nextInt(2)) +
+//					String.format("%04d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*15)+1)))) +
+//					String.format("%08d", Integer.parseInt(Integer.toBinaryString((int)((Math.random()*50)+1)))));
 		}
 		return path;
 	}

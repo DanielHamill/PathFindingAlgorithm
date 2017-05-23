@@ -58,8 +58,8 @@ public class Entity {
 	
 	public void interpret(String bitString) {
 		path.clear();
-		for(int i = 0; i < bitString.length(); i+=16) {
-			path.add(new Vec2(bitString.substring(i, i+16)));
+		for(int i = 0; i < bitString.length(); i+=18) {
+			path.add(new Vec2(bitString.substring(i, i+18)));
 		}
 	}
 	
