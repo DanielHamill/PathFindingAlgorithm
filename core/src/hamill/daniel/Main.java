@@ -15,6 +15,7 @@ public class Main extends Game {
 	public OrthographicCamera camera;
 	public Viewport viewport;
 	public Batch batch;
+	public MainScreen screen;
 	
 	@Override
 	public void create () {
@@ -22,7 +23,8 @@ public class Main extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 320, 240);
 		
-		setScreen(new MainScreen(this));
+		screen = new MainScreen(this);
+		setScreen(screen);
 	}
 
 	@Override

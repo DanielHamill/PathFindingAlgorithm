@@ -6,21 +6,22 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import hamill.daniel.Main;
+import hamill.daniel.screens.MainScreen;
 
 public class GeneticAlgorithm {
 
-	private static final int GENERATION_SIZE = 75;
+	private static final int GENERATION_SIZE = 200;
 	private static final double MUTATION_RATE = 0.1;
 	
-	private Main main;
+	public MainScreen screen;
 	
 	private ArrayList<Chromosome[]> generations;
 	private int currentGen;
 	private Random r;
 	private boolean running;
 	
-	public GeneticAlgorithm(Main main) {
-		this.main = main;
+	public GeneticAlgorithm(MainScreen screen) {
+		this.screen = screen;
 		
 		generations = new ArrayList<Chromosome[]>();
 		generations.ensureCapacity(30);
@@ -53,7 +54,6 @@ public class GeneticAlgorithm {
 	}
 	
 	public void runProgram() {
-		main.setForegroundFPS(0);
 		generateGeneration();
 		running = true;
 	}
@@ -66,7 +66,11 @@ public class GeneticAlgorithm {
 	
 	public void evaluateGen() {
 		for(Chromosome ch: generations.get(currentGen)) {
-			ch.fitness = (double) (1/(new Vec2(50,50,0).distanceFrom(ch.entity.current)));
+			double efficiency = 99999999999d;
+			if(ch.reachedGoal) efficiency = ch.entity.distance;
+			ch.fitness = (double) (1/(new Vec2(25,25,0).distanceFrom(ch.entity.current))) * 1000;
+			System.out.println(efficiency);
+			System.out.println(ch.fitness);
 		}
 	}
 	
@@ -75,7 +79,7 @@ public class GeneticAlgorithm {
 		generations.add(new Chromosome[GENERATION_SIZE]);
 		
 		for(Chromosome ch: generations.get(currentGen-1)) {
-			for(int i = 0; i < ch.fitness*1000; i++) {
+			for(int i = 0; i < ch.fitness; i++) {
 				genePool.add(ch);
 			}
 		}
@@ -88,7 +92,7 @@ public class GeneticAlgorithm {
 	public void generateGeneration() {
 		generations.add(new Chromosome[GENERATION_SIZE]);
 		for(int i = 0; i < GENERATION_SIZE; i++) {
-			generations.get(currentGen)[i] = new Chromosome(generateString(), this);
+			generations.get(currentGen)[i] = new Chromosome(generateString(), this, screen);
 		}
 	}
 	
@@ -106,12 +110,12 @@ public class GeneticAlgorithm {
 	
 	public Chromosome cross(Chromosome ch1, Chromosome ch2) {
 		int midPoint = (int) (Math.random()*ch1.path.length());
-		Chromosome newCh = new Chromosome(ch1.path.substring(0, midPoint) + ch2.path.substring(midPoint, ch2.path.length()),this);
+		Chromosome newCh = new Chromosome(ch1.path.substring(0, midPoint) + ch2.path.substring(midPoint, ch2.path.length()),this, screen);
 		String oldPath = newCh.path;
 		if(Math.random()<=MUTATION_RATE) {
 			int mutatedIndex = (int) (Math.random()*oldPath.length());
 			String newPath = oldPath.substring(0, mutatedIndex) + (oldPath.charAt(mutatedIndex)=='0'?"1":"0") + oldPath.substring(mutatedIndex+1,oldPath.length());
-			return new Chromosome(newPath, this);
+			return new Chromosome(newPath, this, screen);
 		}
 		return newCh;
 	}
