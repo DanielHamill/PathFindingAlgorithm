@@ -1,6 +1,8 @@
 # Pathfinding Genetic Algorithm
 This is a path finding algorithm that uses evolutionary programing techniques based off of genetics.  
 
+The program can ge run by running PathFinding.jar
+
 The goal is to find the best path from the bottom right corner to the top right
 corner while obstacles (the red squares) are randomly generated in the way.
 
@@ -23,5 +25,5 @@ Each individual in the next generation is created using a combination of the vec
 ### Example:
 Generation 0  
 ![0](https://media.giphy.com/media/QVOeaDxvITHJPPV7cl/giphy.gif)  
-Final Generation
+Final Generation  
 ![Final](https://media.giphy.com/media/XExkm3vK8pDJgjOlcZ/giphy.gif)  
